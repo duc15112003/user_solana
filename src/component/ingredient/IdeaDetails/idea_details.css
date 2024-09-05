@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.idea-details{
+    font-family: "Poppins", sans-serif;
+    background-color: #f7fafc;
+}
+
+.idea-details .user-info-of-idea > a > .img-ava-user {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.idea-details .user-info-of-idea > a > span {
+    font-size: 18px;
+    padding-left: 0.5rem !important;
+    color: white;
+}
+
+.idea-details .user-info-of-idea > a > span:hover{
+    color: #6e61ff !important;
+}
+
+.idea-details .user-info-of-idea{
+    padding: 15px;
+    margin-top: 40px;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 2px solid #f7fafc;
+}
+
+.idea-details p, .idea-details span, .idea-details a{
+    margin: 0;
+    text-shadow: unset;
+    text-decoration: none;
+}
+
+.container{
+    background-color: unset;
+    box-shadow: unset;
+}
+
+.img-idea-details{
+    margin-bottom: 30px;
+}
+
+.img-idea-details>.control-img>img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.idea-info-details > h3{
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: #94a3b8;
+}
+
+.idea-info-details > h1{
+    font-size: 29px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.idea-info-details{
+    margin-bottom: 40px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+}
+
+.idea-feedback-user{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.description-idea>p{
+    margin-bottom: 0;
+    font-weight: normal;
+    line-height: 2;
+    font-size: 14px;
+    text-shadow: none;
+}
+
+.idea-feedback-user .the-prizes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 2px solid #f7fafc;
+}
+
+.idea-feedback-user .the-prizes>div{
+    font-size: 1.5rem;
+}
+
+.idea-feedback-user .the-prizes .prize-money{
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.idea-feedback-user .the-prizes i{
+    color: #6e61ff;
+}
+
+.idea-feedback-user .the-prizes .prize-money>span{
+    font-size: 1.5rem;
+    color: #94a3b8;
+}
+
+.idea-feedback-user .the-prizes>span{
+    font-size: 1.125rem;
+    color: #94a3b8;
+}
+
+.input-feedback{
+    padding: 20px;
+    border-bottom: 2px solid #f7fafc;
+}
+
+.input-feedback>textarea{
+    width: 100%;
+    outline: none;
+    border: 2px solid rgba(205, 205, 205, 0.45);
+    border-radius: 10px;
+    padding: 20px;
+    transition: 0.1s ease-in-out;
+}
+
+.input-feedback>textarea::placeholder{
+    color: rgba(143, 143, 143, 0.45);
+}
+
+.input-feedback>textarea:focus{
+    border: 2px solid #9194F5;
+}
+
+.idea-any-details{
+    padding: 20px;
+}
+
+.idea-any-details>div i{
+    font-size: 1.5rem;
+    color: #6e61ff;
+}
+
+.idea-any-details>div p{
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.idea-any-details>div .remaining-feedback, .idea-any-details>div .hours-idea{
+    color: black;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.btn-feedback{
+    padding: 0 20px 20px 20px;
+}
+
+.btn-feedback>a{
+    background-color: #9194F5;
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 17px;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+@media (max-width: 1199px) {
+    .idea-feedback-user{
+        margin-top: 0;
+    }
+}
+
+
+
+
+
