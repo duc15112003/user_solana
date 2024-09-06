@@ -1,16 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaUser } from 'react-icons/fa';
+import {AuthContext} from "../../../AuthContext";
 
 const Header = () => {
+    const {logout} = useContext(AuthContext);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
        if(localStorage.getItem('token')){
            setIsLoggedIn(true);
+       }else{
+           setIsLoggedIn(false);
        }
     });
+
+    const clickLogout = () =>{
+        logout();
+        setIsLoggedIn(false);
+    }
     
     // Giả sử người dùng đã đăng nhập
     const toggleMenu = () => {
@@ -72,7 +82,7 @@ const Header = () => {
                                                 aria-labelledby="user-menu">
                                                 <li><a className="dropdown-item" href="http://localhost:3000/user/infor">Thông tin người dùng</a></li>
                                                 <li><a className="dropdown-item" href="#">Cài đặt</a></li>
-                                                <li><a className="dropdown-item" href="#">Đăng xuất</a></li>
+                                                <li><a onClick={clickLogout} className="dropdown-item" href="#">Đăng xuất</a></li>
                                             </ul>
                                         </li>
                                     </>
