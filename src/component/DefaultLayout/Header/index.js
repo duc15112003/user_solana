@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaUser } from 'react-icons/fa';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(true); // Giả sử người dùng đã đăng nhập
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+       if(localStorage.getItem('token')){
+           setIsLoggedIn(true);
+       }
+    });
+    
+    // Giả sử người dùng đã đăng nhập
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
