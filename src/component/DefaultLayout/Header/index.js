@@ -8,10 +8,11 @@ const Header = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const [username, setUsername] = useState('')
     useEffect(() => {
        if(localStorage.getItem('token')){
            setIsLoggedIn(true);
+           setUsername(localStorage.getItem('us'));
        }else{
            setIsLoggedIn(false);
        }
@@ -76,7 +77,7 @@ const Header = () => {
                                                 role="button"
                                                 onClick={toggleMenu}
                                             >
-                                                <FaUser className="me-2"/> Username
+                                                <FaUser className="me-2"/> {username}
                                             </a>
                                             <ul className={`dropdown-menu ${isMenuOpen ? 'show' : ''} dropdown-menu-end position-absolute`}
                                                 aria-labelledby="user-menu">
