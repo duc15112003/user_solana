@@ -17,7 +17,7 @@ const LoginForm = () => {
     useEffect(() => {
         if (isLoggedIn) {
             setTimeout(() => {
-                window.location.href = 'http://localhost:3000';
+                window.location.href = '/';
             }, 2000); // Chờ 2 giây trước khi chuyển hướng
         }
     }, [isLoggedIn]);

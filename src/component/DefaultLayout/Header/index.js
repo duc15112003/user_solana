@@ -60,8 +60,8 @@ const Header = () => {
                                         <li className="nav-item"><a className="nav-link" href="/">Trang chủ</a></li>
                                         <li className="nav-item"><a className="nav-link" href="#">Trang</a></li>
                                         <li className="nav-item"><a className="nav-link" href="#">Về chúng tôi</a></li>
-                                        <li className="nav-item"><a className="nav-link" href="http://localhost:3000/user/ideas">Khảo sát</a></li>
-                                        <li className="nav-item"><a className="nav-link" href="http://localhost:3000/user/login">Đăng nhập</a></li>
+                                        <li className="nav-item"><a className="nav-link" href="user/ideas">Khảo sát</a></li>
+                                        <li className="nav-item"><a className="nav-link" href="user/login">Đăng nhập</a></li>
                                     </>
                                 ) : (
                                     <>
@@ -83,7 +83,7 @@ const Header = () => {
                                                 aria-labelledby="user-menu">
                                                 <li><a className="dropdown-item" href="http://localhost:3000/user/infor">Thông tin người dùng</a></li>
                                                 <li><a className="dropdown-item" href="#">Cài đặt</a></li>
-                                                <li><a onClick={clickLogout} className="dropdown-item" href="#">Đăng xuất</a></li>
+                                                <li><a onClick={clickLogout} className="dropdown-item">Đăng xuất</a></li>
                                             </ul>
                                         </li>
                                     </>
