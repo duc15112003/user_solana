@@ -8,6 +8,21 @@ const UserInfor = () => {
     const [userdetail, setUserdetail] = useState([]);
     const us = localStorage.getItem("us")
     const token = localStorage.getItem("token")
+    const [feedbacks,setFeedback] = useState([])
+    const fetchFeedback = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/user/feedback/get?username=${us}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setFeedback(response.data.result); // Dữ liệu từ API
+            setLoading(false);
+        } catch (error) {
+            setError('Có lỗi xảy ra khi tải dữ liệu.');
+            setLoading(false);
+        }
+    };
     const [ideas, setIdeas] = useState([]);
     const [formData, setFormData] = useState({
         id:'',
@@ -61,6 +76,7 @@ const UserInfor = () => {
     useEffect(() => {
         fetchUser();
         fetchIdeas();
+        fetchFeedback();
     }, []);
 
     // Hàm xử lý thay đổi dữ liệu của form
@@ -159,40 +175,101 @@ const UserInfor = () => {
                         </div>
                         <div id="menu2" className="tab-pane fade">
                             <h2 className="mb-4 fs-3 fw-bold text-primary">Ý tưởng đã đăng</h2>
-                            <table className="table table-striped table-bordered">
-                                <thead className="table-dark">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
-                                    <th>End At</th>
-                                    <th>Count Feedback</th>
-                                    <th>Award For One Feedback</th>
-                                    <th>Username</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {ideas.map((idea) => (
-                                    <tr key={idea.id}>
-                                        <td>{idea.id}</td>
-                                        <td>{idea.title}</td>
-                                        <td>{idea.description}</td>
-                                        <td>{idea.status}</td>
-                                        <td>{idea.createdAt}</td>
-                                        <td>{idea.updateAt}</td>
-                                        <td>{idea.endAt}</td>
-                                        <td>{idea.countFeedback}</td>
-                                        <td>{idea.awardForOneFeedback}</td>
-                                        <td>{idea.account.username}</td>
+                            <div className="table-responsive" style={{fontFamily: "'Montserrat', sans-serif"}}>
+                                <table className="table table-bordered table-hover table-striped align-middle">
+                                    <thead className="table-info">
+                                    <tr className="text-center">
+                                        <th>ID</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Mô tả</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Ngày cập nhật</th>
+                                        <th>Ngày kết thúc</th>
+                                        <th>Số lượng phản hồi</th>
+                                        <th>Phần thưởng cho một phản hồi</th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {ideas.map((idea, index) => (
+                                        <tr
+                                            key={idea.id}
+                                            className={`table-${index % 2 === 0 ? 'primary' : 'light'} animate__animated animate__fadeIn`}
+                                            style={{transition: 'all 0.3s ease-in-out'}}
+                                        >
+                                            <td className="text-center fw-bold">{idea.id}</td>
+                                            <td>
+                                                <i className="bi bi-lightbulb-fill text-warning me-2"></i>
+                                                {idea.title}
+                                            </td>
+                                            <td>{idea.description}</td>
+                                            <td className="text-center">
+                        <span className={`badge bg-${idea.status === 'active' ? 'success' : 'danger'}`}>
+                            {idea.status === 'active' ? 'Đang hoạt động' : 'Không hoạt động'}
+                        </span>
+                                            </td>
+                                            <td className="text-center">{new Date(idea.createdAt).toLocaleDateString()}</td>
+                                            <td className="text-center">{new Date(idea.updateAt).toLocaleDateString()}</td>
+                                            <td className="text-center">{new Date(idea.endAt).toLocaleDateString()}</td>
+                                            <td className="text-center">
+                                                <i className="bi bi-chat-left-text-fill text-primary me-2"></i>
+                                                {idea.countFeedback}
+                                            </td>
+                                            <td className="text-center">
+                                                <i className="bi bi-cash-coin text-success me-2"></i>
+                                                {idea.awardForOneFeedback}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="menu3" className="tab-pane fade">
+                            <h2 className="mb-4 fs-3 fw-bold text-primary">Phản hồi đã đăng</h2>
+                            <div className="table-responsive" style={{fontFamily: "'Montserrat', sans-serif"}}>
+                                <table className="table table-bordered table-hover table-striped align-middle">
+                                    <thead className="table-info">
+                                    <tr className="text-center">
+                                        <th>ID</th>
+                                        <th>Phản hồi</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Trạng thái</th>
+                                        <th>Đánh giá</th>
+                                        <th>Tên người dùng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {feedbacks.map((feedback, index) => (
+                                        <tr
+                                            key={feedback.id}
+                                            className={`table-${index % 2 === 0 ? 'primary' : 'light'} animate__animated animate__fadeIn`}
+                                            style={{transition: 'all 0.3s ease-in-out'}}
+                                        >
+                                            <td className="text-center fw-bold">{feedback.id}</td>
+                                            <td>
+                                                <i className="bi bi-chat-left-text-fill text-primary me-2"></i>
+                                                {feedback.feedback}
+                                            </td>
+                                            <td className="text-center">{new Date(feedback.createAt).toLocaleDateString()}</td>
+                                            <td className="text-center">
+                        <span className={`badge bg-${feedback.status === 'pending' ? 'warning' : 'success'}`}>
+                            {feedback.status === 'pending' ? 'Chờ xử lý' : 'Hoàn thành'}
+                        </span>
+                                            </td>
+                                            <td className="text-center">
+                                                <i className="bi bi-star-fill text-warning me-2"></i>
+                                                {feedback.rate}
+                                            </td>
+                                            <td className="text-center">{feedback.account}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
+
                         <div id="menu5" className="tab-pane fade">
                             <h2 className="mb-4 fs-3 fw-bold text-primary">Cài đặt</h2>
                             <div>
