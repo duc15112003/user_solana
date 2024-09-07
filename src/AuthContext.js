@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem('isLoggedIn', 'false');
     sessionStorage.clear();
     localStorage.clear();
-    window.location.href = 'user/login';
+    window.location.href = '/';
   };
 
   const checkTokenValidity = () => {
