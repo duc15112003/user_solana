@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { AuthContext } from "../../../AuthContext";
+import RegisterService from '../../../service/register';
+import LoginService from '../../../service/login';
 function RegisterForm() {
+    const { isLoggedIn, login } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         firstname: "",
         lastname: "",
@@ -9,7 +12,7 @@ function RegisterForm() {
         username: "",
         password: "",
         birthday: "",
-        phone_number: ""
+        phonenumber: ""
     });
 
     const handleChange = (e) => {
@@ -18,10 +21,30 @@ function RegisterForm() {
             [e.target.name]: e.target.value,
         });
     };
-
-    const handleSubmit = (e) => {
+    //Dùng useEffect khi giá trị trong [] thay đổi thì nó sẽ thực thi
+    useEffect(() => {
+        if (isLoggedIn) {
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000); // Chờ 2 giây trước khi chuyển hướng
+        }
+    }, [isLoggedIn]);
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted", formData);
+        try {
+            console.log(formData)
+            await RegisterService.RegisterProcess(formData);
+            await LoginService.LoginProcess(formData.username, formData.password);
+            login();
+            console.log("Form submitted", formData);
+        }
+        catch (error) {
+            if (error.response) {
+                console.log('Register failed:', error.response.data);
+            }else{
+                console.log(error);
+            }
+        }
     };
 
     return (
@@ -112,41 +135,41 @@ function RegisterForm() {
                                         </div>
                                     </div>
 
-                                        <div className="row mb-3">
-                                            <div className="col-md-6">
-                                                <div className="form-floating">
-                                                    <input
-                                                        type="date"
-                                                        name="birthday"
-                                                        value={formData.birthday}
-                                                        onChange={handleChange}
-                                                        className="form-control"
-                                                        placeholder="Birthday"
-                                                        required
-                                                    />
-                                                    <label htmlFor="birthday">Birthday</label>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-floating">
-                                                    <input
-                                                        type="tel"
-                                                        name="phone_number"
-                                                        value={formData.phone_number}
-                                                        onChange={handleChange}
-                                                        className="form-control"
-                                                        placeholder="+1234567890"
-                                                    />
-                                                    <label htmlFor="phone_number">Phone Number</label>
-                                                </div>
+                                    <div className="row mb-3">
+                                        <div className="col-md-6">
+                                            <div className="form-floating">
+                                                <input
+                                                    type="date"
+                                                    name="birthday"
+                                                    value={formData.birthday}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="Birthday"
+                                                    required
+                                                />
+                                                <label htmlFor="birthday">Birthday</label>
                                             </div>
                                         </div>
+                                        <div className="col-md-6">
+                                            <div className="form-floating">
+                                                <input
+                                                    type="tel"
+                                                    name="phonenumber"
+                                                    value={formData.phonenumber}
+                                                    onChange={handleChange}
+                                                    className="form-control"
+                                                    placeholder="+1234567890"
+                                                />
+                                                <label htmlFor="phonenumber">Phone Number</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        <div className="d-grid">
-                                            <button type="submit" className="btn btn-primary btn-block py-2">
-                                                Register
-                                            </button>
-                                        </div>
+                                    <div className="d-grid">
+                                        <button type="submit" className="btn btn-primary btn-block py-2">
+                                            Register
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                             <div className="card-footer text-center text-muted">
