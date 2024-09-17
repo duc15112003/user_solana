@@ -2,13 +2,15 @@ import React, {useContext, useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaUser } from 'react-icons/fa';
 import {AuthContext} from "../../../AuthContext";
-
+import {useWallet} from '@solana/wallet-adapter-react';
+import connectService from '../../../service/connect_wallet';
 const Header = () => {
     const {logout} = useContext(AuthContext);
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('')
+    const [balance, setBalance] = useState(null);
+    const {publicKey} = useWallet();
     useEffect(() => {
        if(localStorage.getItem('token')){
            setIsLoggedIn(true);
@@ -26,6 +28,20 @@ const Header = () => {
     // Giả sử người dùng đã đăng nhập
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const clickConnect = async () => {
+        try {
+            const balance = await connectService.connect_wallet(publicKey);
+            if (balance !== null) {
+                setBalance(balance);
+                console.log('Balance:', balance);
+            } else {
+                console.log('No balance received');
+            }
+        } catch (error) {
+            console.error('Error in clickConnect:', error);
+        }
     };
 
     return (
@@ -84,6 +100,7 @@ const Header = () => {
                                                 <li><a className="dropdown-item" href="http://localhost:3000/user/infor">Thông tin người dùng</a></li>
                                                 <li><a className="dropdown-item" href="#">Cài đặt</a></li>
                                                 <li><a onClick={clickLogout} className="dropdown-item">Đăng xuất</a></li>
+                                                <li><a onClick={clickConnect} className="dropdown-item">Kết nối ví</a></li>
                                             </ul>
                                         </li>
                                     </>
