@@ -4,10 +4,7 @@ import { publicRoutes } from "./component/route/index";
 import { DefaultLayout } from "./component/DefaultLayout/index";
 import { AuthLayout } from "./component/AuthLayout";
 
-import { WalletProvider } from "@solana/wallet-adapter-react";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
-require('@solana/wallet-adapter-react-ui/styles.css');
+
 
 const App = () => {
   return (
@@ -42,15 +39,5 @@ const App = () => {
   );
 }
 
-    const Wallet = () => {
-        const wallets = [new PhantomWalletAdapter()];
-        return (
-          <WalletProvider wallets={wallets} autoConnect>
-            <WalletModalProvider>
-              <App />
-            </WalletModalProvider>
-          </WalletProvider>
-        );
-      };
 
-export default Wallet;
+export default App;

@@ -2,19 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUser } from "react-icons/fa";
 import { AuthContext } from "../../../AuthContext";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { PublicKey } from '@solana/web3.js';
 import connectService from "../../../service/connect_wallet";
+
 const Header = () => {
   const { logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [balance, setBalance] = useState(null);
-  const { publicKey } = useWallet();
-
   const [walletAddress, setWalletAddress] = useState(null);
   const [phantomAvailable, setPhantomAvailable] = useState(false);
-
+  const [balance, setBalance] = useState(null)
+  const [model, setShowModal] = useState(false)
   // Check if Phantom is available
   useEffect(() => {
     if (window?.solana?.isPhantom) {
@@ -49,12 +48,10 @@ const Header = () => {
 
   // Function to disconnect the wallet
   const disconnectWallet = () => {
-    const confirm_choice = confirm('Bạn có muốn huỷ kết nối ví không ?');
-    if(confirm_choice){
-        setWalletAddress(null);
+    setWalletAddress(null);
     window.solana.disconnect();
     console.log("Disconnected from wallet");
-    }
+    setShowModal(false);
   };
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -77,7 +74,7 @@ const Header = () => {
 
   const clickConnect = async () => {
     try {
-      const balance = await connectService.connect_wallet(publicKey);
+      const balance = await connectService.connect_wallet(PublicKey);
       if (balance !== null) {
         setBalance(balance);
         console.log("Balance:", balance);
