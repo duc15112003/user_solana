@@ -6,6 +6,7 @@ import IdeaDetails from "../ingredient/IdeaDetails";
 import FogetPassword from "../ingredient/FogetPassword";
 import UserInfor from "../ingredient/UserInfor";
 import RegisterForm from "../ingredient/Register";
+import ImageUpload from "../ingredient/uploadImage/ImageUpload";
 const publicRoutes = [
     {path: '/', component: Home },
     {path: 'user/login', component: Login},
@@ -13,7 +14,8 @@ const publicRoutes = [
     {path: 'user/ideas', component: IdeaUser},
     {path: 'user/ideas/details', component: IdeaDetails},
     {path: 'user/infor', component: UserInfor},
-    {path: 'user/register', component: RegisterForm}
+    {path: 'user/register', component: RegisterForm},
+    {path: 'user/upload', component: ImageUpload},
 ];
 
 export { publicRoutes };
