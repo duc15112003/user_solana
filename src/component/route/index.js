@@ -12,10 +12,10 @@ const publicRoutes = [
     {path: 'user/login', component: Login},
     {path: 'user/forgotpassword', component: FogetPassword},
     {path: 'user/ideas', component: IdeaUser},
-    {path: 'user/ideas/details', component: IdeaDetails},
+    {path: 'user/ideas/details/*', component: IdeaDetails},
     {path: 'user/infor', component: UserInfor},
     {path: 'user/register', component: RegisterForm},
-    {path: 'user/upload', component: ImageUpload},
+    // {path: 'user/upload', component: ImageUpload},
 ];
 
 export { publicRoutes };
