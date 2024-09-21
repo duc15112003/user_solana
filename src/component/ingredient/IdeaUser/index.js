@@ -6,14 +6,36 @@ import ideaService from "../../../service/idea";
 
 const IdeaUser = () => {
     const [allIdeas, setAllIdeas] = useState([]);
-    const getAllIdeas = async() =>{
-        const ideas = await ideaService.getAllIdeas(0, 10);
-        setAllIdeas(ideas);
+    const [numberOfPages, setNumberOfPages] = useState(null);
+    const [pageAtCurrent, setPageAtCurrent] = useState(0)
+    const getAllIdeas = async(page, size) =>{
+        const ideas = await ideaService.getAllIdeas(page, size);
+        setAllIdeas(ideas.content);
+        setPageAtCurrent(ideas.page.number);
+    }
+    const getTotalPageNumber = async() =>{
+        const page = await ideaService.getPageAndNumberOfPages();
+        setNumberOfPages(page.totalPages);
     }
 
+
     useEffect(() => {
-       getAllIdeas();
-    }, [])
+       getAllIdeas(pageAtCurrent, 5);
+       getTotalPageNumber();
+    }, [pageAtCurrent])
+
+
+    const page_right = () =>{
+        if(pageAtCurrent + 1 < numberOfPages){
+            setPageAtCurrent(pageAtCurrent + 1);
+        }
+    }
+
+    const page_left = () =>{
+        if(pageAtCurrent > 0){
+            setPageAtCurrent(pageAtCurrent - 1);
+        }
+    }    
 
 
     return (
@@ -65,9 +87,12 @@ const IdeaUser = () => {
                     </div>
                 </div>
                 ))}
-                <div>
-                    <button><i class="bi bi-caret-left-fill"></i></button>
-                    
+                <div className="row">
+                    <div className="col-lg-12 col-md-12 mb-4 text-center">
+                        <button className="me-2" onClick={page_left}><i class="bi bi-caret-left-fill"></i></button>
+                            {pageAtCurrent+1}/{numberOfPages}
+                        <button className="ms-2" onClick={page_right}><i class="bi bi-caret-right-fill"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
