@@ -17,9 +17,22 @@ const getAllIdeas = async (page, size) => {
       const response = await apiClient.get('/all', {
         params: { page, size }
       })
-      return response.data.result.content;
+      return response.data.result;
     } catch (error) {
       console.error('Error get all ideas', error)
+      throw error
+    }
+}
+
+const getPageAndNumberOfPages = async (page = 0, size = 5) => {
+    try {
+      const response = await apiClient.get('/all', {
+        params: { page, size }
+      })
+      console.log(response.data.result.page)
+      return response.data.result.page;
+    } catch (error) {
+      console.error('Error get number of ideas', error)
       throw error
     }
 }
@@ -36,7 +49,8 @@ const getIdea = async(id) =>{
 
 const ideaService = {
     getAllIdeas,
-    getIdea
+    getIdea,
+    getPageAndNumberOfPages
 }
 
 export default ideaService;
