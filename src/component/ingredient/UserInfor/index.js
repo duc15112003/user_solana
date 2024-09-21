@@ -73,11 +73,11 @@ const UserInfor = () => {
         }
     };
 
-    useEffect(() => {
-        fetchUser();
-        fetchIdeas();
-        fetchFeedback();
-    }, []);
+    // useEffect(() => {
+    //     fetchUser();
+    //     fetchIdeas();
+    //     fetchFeedback();
+    // }, []);
 
     // Hàm xử lý thay đổi dữ liệu của form
     const handleChange = (event) => {

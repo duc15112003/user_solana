@@ -4,8 +4,6 @@ import { publicRoutes } from "./component/route/index";
 import { DefaultLayout } from "./component/DefaultLayout/index";
 import { AuthLayout } from "./component/AuthLayout";
 
-
-
 const App = () => {
   return (
         <Router>
@@ -38,6 +36,5 @@ const App = () => {
         </Router>
   );
 }
-
 
 export default App;
