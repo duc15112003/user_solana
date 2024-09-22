@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="90e78028-b664-40dd-ae62-17d5c1fc1e8d" name="Changes" comment="fix show username">
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/DefaultLayout/Header/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/DefaultLayout/Header/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2le9kr4m58d9pyvUHFSs34PKNGO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev-nhan&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/SOLANA/user_solana&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="90e78028-b664-40dd-ae62-17d5c1fc1e8d" name="Changes" comment="" />
+      <created>1725529820329</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1725529820329</updated>
+      <workItem from="1725529821645" duration="1321000" />
+      <workItem from="1725547047195" duration="140000" />
+      <workItem from="1725553120089" duration="703000" />
+      <workItem from="1725555317247" duration="1421000" />
+      <workItem from="1725595723551" duration="3137000" />
+      <workItem from="1725623988068" duration="309000" />
+      <workItem from="1725628885605" duration="3684000" />
+      <workItem from="1725632977488" duration="391000" />
+      <workItem from="1725637571639" duration="1845000" />
+      <workItem from="1725676752212" duration="2272000" />
+      <workItem from="1725817001370" duration="1132000" />
+      <workItem from="1726061702342" duration="1487000" />
+      <workItem from="1726063753828" duration="630000" />
+      <workItem from="1726065437285" duration="581000" />
+      <workItem from="1726067314941" duration="1102000" />
+      <workItem from="1726069908792" duration="25000" />
+      <workItem from="1726404101180" duration="302000" />
+      <workItem from="1726404844728" duration="21000" />
+      <workItem from="1726406656234" duration="1244000" />
+    </task>
+    <task id="LOCAL-00001" summary="call api login">
+      <option name="closed" value="true" />
+      <created>1725598793998</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725598793998</updated>
+    </task>
+    <task id="LOCAL-00002" summary="logout">
+      <option name="closed" value="true" />
+      <created>1725630628862</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725630628862</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix show username">
+      <option name="closed" value="true" />
+      <created>1725631045991</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1725631045991</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="call api login" />
+    <MESSAGE value="logout" />
+    <MESSAGE value="fix show username" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix show username" />
+  </component>
+</project>
