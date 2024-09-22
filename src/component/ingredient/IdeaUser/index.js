@@ -20,7 +20,7 @@ const IdeaUser = () => {
 
 
     useEffect(() => {
-       getAllIdeas(pageAtCurrent, 5);
+       getAllIdeas(pageAtCurrent, 6);
        getTotalPageNumber();
     }, [pageAtCurrent])
 

@@ -24,7 +24,7 @@ const getAllIdeas = async (page, size) => {
     }
 }
 
-const getPageAndNumberOfPages = async (page = 0, size = 5) => {
+const getPageAndNumberOfPages = async (page = 0, size = 6) => {
     try {
       const response = await apiClient.get('/all', {
         params: { page, size }
