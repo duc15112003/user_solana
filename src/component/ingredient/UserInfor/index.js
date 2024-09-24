@@ -5,10 +5,10 @@ import axios from "axios";
 
 
 const UserInfor = () => {
-    const [userdetail, setUserdetail] = useState([]);
-    const us = localStorage.getItem("us")
-    const token = localStorage.getItem("token")
-    const [feedbacks,setFeedback] = useState([])
+    const us = localStorage.getItem("us");
+    const token = localStorage.getItem("token");
+    const [feedbacks,setFeedback] = useState([]);
+
     const fetchFeedback = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/user/feedback/get?username=${us}`,{
@@ -25,13 +25,17 @@ const UserInfor = () => {
     };
     const [ideas, setIdeas] = useState([]);
     const [formData, setFormData] = useState({
-        id:'',
-        firstname: '',
+        id: '',
         lastname: '',
+        firstname: '',
+        avatar: '',
         birthday: '',
         phoneNumber: '',
         address: '',
-    });
+        email: '',
+        publicKey: ''
+      });  
+          
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const fetchIdeas = async () => {
@@ -55,29 +59,94 @@ const UserInfor = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
+            console.log('Response:', response);  // Kiểm tra phản hồi từ API
             if (response.data.code === 200) {
-                // Cập nhật dữ liệu từ API vào formData
                 setFormData({
+                    id: response.data.result.id || '',
                     firstname: response.data.result.firstname || '',
                     lastname: response.data.result.lastname || '',
+                    avatar: response.data.result.avatar || '',
                     birthday: response.data.result.birthday || '',
                     phoneNumber: response.data.result.phoneNumber || '',
                     address: response.data.result.address || '',
-                    email: ''  // Nếu email không có trong API, có thể để trống hoặc loại bỏ trường này
+                    email: response.data.result.email || '',  // Nếu email không có trong API, có thể để trống hoặc loại bỏ trường này
+                    publicKey: response.data.result.publicKey || '' 
                 });
             } else {
-                alert("Lỗi user");
+                console.error("Lỗi user: ", response.data.message);
             }
         } catch (error) {
             console.error('Có lỗi xảy ra:', error);
         }
-    };
+    };    
 
     useEffect(() => {
         fetchUser();
         fetchIdeas();
         fetchFeedback();
     }, []);
+
+    const updateInforUser = async() =>{
+        console.log(formData);
+        try {
+            const response = await axios.put('http://localhost:8080/api/admin/customer/update', formData,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            fetchUser();
+            console.log('Formdata at update infor user', formData);
+            setFormData(response.data.result);
+        } catch (error) {
+            console.log("Error at update data infor", error);
+        }
+    }
+
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
+
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+      };
+
+    const handleUpload = async () => {
+        if (!selectedFile) {
+          alert('Please select a file');
+          return;
+        }
+    
+        const formImg = new FormData();
+        formImg.append('file', selectedFile);
+    
+        try {
+          const response = await axios.post('http://localhost:8080/api/upload/image', formImg, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          setImageUrl(response.data);
+          return true;
+        } catch (error) {
+            console.error('Error uploading image:', error.response ? error.response.data : error);
+          alert('Image upload failed');
+          return false;
+        }
+    };
+    
+    useEffect(() => {
+        if (selectedFile && handleUpload()) {
+            const avatar = imageUrl; 
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                avatar: avatar || '',
+            }));
+            console.log(avatar);
+            console.log("Formdata at useEffect", formData);
+            updateInforUser();
+        } else {
+            console.log("Fail at update avatar");
+        }
+    }, [selectedFile]);
 
     // Hàm xử lý thay đổi dữ liệu của form
     const handleChange = (event) => {
@@ -95,7 +164,7 @@ const UserInfor = () => {
                         <div className="card-body d-flex flex-column align-items-center text-center">
                             <div className="position-relative mb-3">
                                 <img
-                                    src="https://static.vecteezy.com/system/resources/previews/002/275/847/non_2x/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg"
+                                    src={formData.avatar}
                                     alt="User Avatar"
                                     className="img-fluid rounded-circle border border-3 border-primary"
                                     style={{ width: '150px', height: '150px', objectFit: 'cover', transition: 'transform 0.3s' }}
@@ -104,7 +173,7 @@ const UserInfor = () => {
                                     <label htmlFor="file-upload" className="btn btn-primary btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center border-0" style={{ transition: 'background-color 0.3s' }}>
                                         <BiPencil size={20} />
                                     </label>
-                                    <input id="file-upload" className="d-none" type="file"/>
+                                    <input id="file-upload" onChange={handleFileChange} className="d-none" type="file"/>
                                 </div>
                             </div>
                             <p className="mt-2 mb-3 fs-5 fw-bold text-primary">{us}</p>
@@ -129,30 +198,31 @@ const UserInfor = () => {
                             <h2 className="mb-4 fs-3 fw-bold text-primary">Thông tin người dùng</h2>
                             <div className="mb-4">
                                 <h5 className="mb-3 fs-4 fw-semibold">Thông tin cơ bản</h5>
-                                <form>
-                                    <div className="row">
-                                        {['Họ', 'Tên', 'Ngày sinh', 'Số điện thoại', 'Địa chỉ', 'Email'].map((placeholder, index) => (
+                                
+                                        <div className="row">
+                                            {['Họ', 'Tên', 'Ngày sinh', 'Số điện thoại', 'Địa chỉ', 'Email'].map((placeholder, index) => (
                                             <div key={index} className={`col-md-${index < 4 ? '6' : '12'} mb-3`}>
                                                 <div className="form-floating">
-                                                    <input
-                                                        type={index === 2 ? 'date' : (index === 5 ? 'email' : 'text')}
-                                                        className="form-control"
-                                                        id={index === 0 ? 'lastname' : (index === 1 ? 'firstname' : (index === 2 ? 'birthday' : (index === 3 ? 'phoneNumber' : (index === 4 ? 'address' : 'email'))))}
-                                                        placeholder={placeholder}
-                                                        value={formData[index === 0 ? 'lastname' : (index === 1 ? 'firstname' : (index === 2 ? 'birthday' : (index === 3 ? 'phoneNumber' : (index === 4 ? 'address' : 'email'))))]}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <label
-                                                        htmlFor={index === 0 ? 'lastname' : (index === 1 ? 'firstname' : (index === 2 ? 'birthday' : (index === 3 ? 'phoneNumber' : (index === 4 ? 'address' : 'email'))))}>
-                                                        {placeholder}
-                                                    </label>
+                                                <input
+                                                    type={index === 2 ? 'date' : (index === 5 ? 'email' : 'text')}
+                                                    className="form-control"
+                                                    id={index === 0 ? 'lastname' : (index === 1 ? 'firstname' : (index === 2 ? 'birthday' : (index === 3 ? 'phoneNumber' : (index === 4 ? 'address' : 'email'))))}
+                                                    placeholder={placeholder}
+                                                    value={formData[index === 0 ? 'lastname' : (index === 1 ? 'firstname' : (index === 2 ? 'birthday' : (index === 3 ? 'phoneNumber' : (index === 4 ? 'address' : 'email'))))]}
+                                                    onChange={handleChange}
+                                                />
+                                                <label
+                                                    htmlFor={index === 0 ? 'lastname' : (index === 1 ? 'firstname' : (index === 2 ? 'birthday' : (index === 3 ? 'phoneNumber' : (index === 4 ? 'address' : 'email'))))}
+                                                >
+                                                    {placeholder}
+                                                </label>
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
-                                    <button type="submit" className="btn btn-primary px-4 py-2 shadow-sm">Xác nhận
-                                    </button>
-                                </form>
+                                            ))}
+                                        </div>
+                                        <button onClick={updateInforUser} className="btn btn-primary px-4 py-2 shadow-sm">Xác nhận</button>
+                                    
+
                             </div>
                             <div>
                                 <h5 className="mb-3 fs-4 fw-semibold">Đổi mật khẩu</h5>
@@ -261,7 +331,7 @@ const UserInfor = () => {
                                                 <i className="bi bi-star-fill text-warning me-2"></i>
                                                 {feedback.rate}
                                             </td>
-                                            <td className="text-center">{feedback.account}</td>
+                                            <td className="text-center">{feedback.account.username}</td>
                                         </tr>
                                     ))}
                                     </tbody>

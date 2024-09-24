@@ -16,6 +16,7 @@ const publicRoutes = [
     {path: 'user/infor', component: UserInfor},
     {path: 'user/register', component: RegisterForm},
     {path: 'user/upload', component: ImageUpload},
+    {path: 'user/push_idea'}
 ];
 
 export { publicRoutes };
