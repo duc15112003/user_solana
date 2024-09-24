@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import './idea_details.css'
 import ideaService from "../../../service/idea";
+import axios from "axios";
 
 const IdeaDetails = () =>{
     const [idea, setIdea] = useState(null);
-
+    const [account, setAccount] = useState();
+    const [us, setUs] = useState(localStorage.getItem('us'));
+    const [token, setToken] = useState(localStorage.getItem('token'));
     const getIdea = async (id) => {
         try {
           const ideaData = await ideaService.getIdea(id);
@@ -24,6 +27,78 @@ const IdeaDetails = () =>{
             console.warn('No ID found in URL pathname.');
           }
     }, []);
+
+    const [formData, setFormData] = useState({
+        feedback: '',
+        createAt: new Date().toISOString(),
+        status: 'pending',
+        rate: 5,
+        account: account || null,
+        idea: idea || null
+      });
+
+      useEffect(() => {
+        const fetchAccount = async () => {
+            const accountData = await getAccount();
+            setAccount(accountData);
+        };
+    
+        if (us && token) {
+            fetchAccount();
+        }
+    }, [us, token]);
+
+        useEffect(() => {
+            const updateFormData = () => {
+                setFormData(prevState => ({
+                    ...prevState,
+                    account: account || null,
+                    idea: idea || null,
+                    createAt: new Date().toISOString() // Nếu bạn muốn cập nhật thời gian
+                }));
+            };
+
+            if (idea || account) {
+                updateFormData();
+            }
+        }, [idea, account]);
+      
+    const getAccount = async() =>{
+        try {
+            const response = await axios.get(`http://localhost:8080/api/auth/getaccount?username=${us}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.result;
+        } catch (error) {
+            console.log('Error at getAccount')
+        }
+    }
+
+    const handleChange = (event) => {
+        const { id, value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [id]: value
+        }));
+    };
+
+    const pushFeedback = async() =>{
+        console.log(formData);
+        try {
+            const response = await axios.post('http://localhost:8080/api/feedback/create', formData,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            alert("Đăng thành công");
+            window.location.href = '/user/ideas';
+        } catch (error) {
+            console.log('Error at pushFeedback', error);
+        }
+    }
+
   return(
       <div className="idea-details">
           <div className="container-fluid">
@@ -72,7 +147,7 @@ const IdeaDetails = () =>{
                             </div>
                             <div className="col-12">
                                 <div className="input-feedback">
-                                    <textarea placeholder="Enter the feedback" name="feed-back" rows="10">
+                                    <textarea id="feedback" onChange={handleChange} placeholder="Enter the feedback" name="feed-back" rows="10">
                                     </textarea>
                                 </div>
                             </div>
@@ -96,7 +171,7 @@ const IdeaDetails = () =>{
                             </div>
                             <div className="col-12">
                                 <div className="btn-feedback">
-                                    <a href="">Send Feedback Now</a>
+                                    <a onClick={pushFeedback}>Send Feedback Now</a>
                                 </div>
                             </div>
                         </div>
