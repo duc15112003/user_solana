@@ -163,6 +163,11 @@ const Header = () => {
                       </a>
                     </li>
                     <li className="nav-item">
+                      <a className="nav-link" href="user/push_idea">
+                        Đăng ý tưởng
+                      </a>
+                    </li>
+                    <li className="nav-item">
                       <a className="nav-link" href="user/login">
                         Đăng nhập
                       </a>
@@ -227,28 +232,29 @@ const Header = () => {
                             Đăng xuất
                           </a>
                         </li>
-                        {/* <li>
+                        <li>
                           <a onClick={clickConnect} className="dropdown-item">
                             Kết nối ví
                           </a>
-                        </li> */}
+                        </li>
                         {phantomAvailable ? (
-                          walletAddress ? (
-                              <li>
-                                    <a onClick={disconnectWallet} className="dropdown-item">
-                                        {walletAddress}
-                                    </a>
-                            </li>
-                          ) : (
-                            <li>
-                            <a onClick={connectWallet} className="dropdown-item">
-                              Kết nối ví
-                            </a>
-                            </li>
-                          )
-                        ) : (
-                          <li><a>Please install the Phantom Wallet extension.</a></li>
-                        )}
+                                walletAddress ? (
+                                    <li>
+                                      <a onClick={disconnectWallet} className="dropdown-item">
+                                        {walletAddress.publicKey ? walletAddress.publicKey : 'No Public Key'}
+                                      </a>
+                                    </li>
+                                  ) : (
+                                    <li>
+                                      <a onClick={connectWallet} className="dropdown-item">
+                                        Kết nối ví
+                                      </a>
+                                    </li>
+                                  )
+                                ) : (
+                                  <li><a>Please install the Phantom Wallet extension.</a></li>
+                                )}
+
                       </ul>
                     </li>
                   </>
