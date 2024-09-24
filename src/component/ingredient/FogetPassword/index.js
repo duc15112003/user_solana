@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Fogetpassword.css';
+// import './Fogetpassword.css';
 
 function FogetPassword() {
     const [step, setStep] = useState(1);

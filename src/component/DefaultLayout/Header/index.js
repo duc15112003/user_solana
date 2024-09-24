@@ -163,11 +163,6 @@ const Header = () => {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="user/push_idea">
-                        Đăng ý tưởng
-                      </a>
-                    </li>
-                    <li className="nav-item">
                       <a className="nav-link" href="user/login">
                         Đăng nhập
                       </a>
@@ -193,9 +188,14 @@ const Header = () => {
                     <li className="nav-item">
                       <a
                         className="nav-link"
-                        href="http://localhost:3000/user/ideas"
+                        href="user/ideas"
                       >
                         Khảo sát
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="user/push_idea">
+                        Đăng ý tưởng
                       </a>
                     </li>
                     <li className="nav-item dropdown position-relative">
